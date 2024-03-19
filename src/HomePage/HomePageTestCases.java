@@ -2,6 +2,9 @@ package HomePage;
 
 import static org.testng.Assert.assertEquals;
 
+import java.time.Duration;
+import java.time.LocalDate;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
@@ -15,6 +18,7 @@ public class HomePageTestCases extends Parameters {
 	public void MySetup() {
 		driver.manage().window().maximize();
 		driver.get(URL);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
 		WebElement BobMSG = driver.findElement(By.cssSelector(".sc-iBmynh.izXFRL"));
 		if (BobMSG.isDisplayed()) {
 
@@ -53,17 +57,46 @@ public class HomePageTestCases extends Parameters {
 
 	}
 					
-//	@Test(priority = 4)
-//
-//	public void VerifyQatafLogoIsDisplay(){
-//		
-//		Boolean ActualLogo = driver.findElement(By.cssSelector(".sc-fihHvN.eYrDjb")).isDisplayed();
-//		Myassert.assertEquals(ActualLogo , ExpectedLogo);
-//		
-//		
-//	}
-//	
+	@Test(priority = 4)
 
+	public void VerifyQatafLogoIsDisplay(){
+		
+		WebElement QatafLogo = driver.findElement(By.xpath("//div[@class='sc-fihHvN eYrDjb']//*[name()='svg']"));
+		boolean actualResult =  QatafLogo.isDisplayed();
+		Myassert.assertEquals(actualResult , true);
+	
+	}
+		
+		@Test(priority = 5)
+		
+		public void CheckTheHotelTapIsNotSelected() {
+			
+			WebElement HotelTap = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels"));
+			
+			String ActualResult = HotelTap.getAttribute("aria-selected");
+			
+			Myassert.assertEquals(ActualResult , "false");
+		}
+	
+	@Test(priority = 6)
+	public void CheckFlightDepartureDate() {
+		
+		String ActualDepartureDate = driver.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-kqlzXE blwiEW'] span[class='sc-cPuPxo LiroG']")).getText();
+				int ActualDepartureDateAsNumber = Integer.parseInt(ActualDepartureDate);
+			
+				Myassert.assertEquals(ActualDepartureDateAsNumber, Tomorrow);
+		
+		
+	}
+			@Test(priority = 7)
+			public void CheckFlightReturnDate() {
+				
+				String ActualReturnDate = driver.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-OxbzP edzUwL'] span[class='sc-cPuPxo LiroG']")).getText();
+				int ActualReturnDateAsNumber = Integer.parseInt(ActualReturnDate);
+				
+				Myassert.assertEquals(ActualReturnDateAsNumber, TheDayAfterTomorrow);
+				
+			}
 	}
 
 

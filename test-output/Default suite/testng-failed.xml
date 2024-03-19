@@ -5,7 +5,7 @@
     <classes>
       <class name="HomePage.HomePageTestCases">
         <methods>
-          <include name="CheckTheHotelsSearchTap"/>
+          <include name="CheckTheHotelTapIsNotSelected"/>
           <include name="MySetup"/>
         </methods>
       </class> <!-- HomePage.HomePageTestCases -->
