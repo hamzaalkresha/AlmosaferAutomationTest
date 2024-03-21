@@ -4,12 +4,15 @@ import static org.testng.Assert.assertEquals;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import org.testng.asserts.Assertion;
+
+import bsh.commands.dir;
 
 public class HomePageTestCases extends Parameters {
 
@@ -34,7 +37,7 @@ public class HomePageTestCases extends Parameters {
 	public void CheckTheDefultLanguage() {
 
 		String ActualLanguage = driver.findElement(By.tagName("html")).getAttribute("lang");
-		Myassert.assertEquals(ActualLanguage, ExpectedLanguage);
+		Myassert.assertEquals(ActualLanguage, ExpectedEnglishLanguage);
 
 	}
 
@@ -56,49 +59,67 @@ public class HomePageTestCases extends Parameters {
 		Myassert.assertEquals(ActualContactNumber, ExpectedContactNumber);
 
 	}
-					
+
 	@Test(priority = 4)
 
-	public void VerifyQatafLogoIsDisplay(){
-		
+	public void VerifyQatafLogoIsDisplay() {
+
 		WebElement QatafLogo = driver.findElement(By.xpath("//div[@class='sc-fihHvN eYrDjb']//*[name()='svg']"));
-		boolean actualResult =  QatafLogo.isDisplayed();
-		Myassert.assertEquals(actualResult , true);
-	
+		boolean actualResult = QatafLogo.isDisplayed();
+		Myassert.assertEquals(actualResult, true);
+
 	}
-		
-		@Test(priority = 5)
-		
-		public void CheckTheHotelTapIsNotSelected() {
-			
-			WebElement HotelTap = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels"));
-			
-			String ActualResult = HotelTap.getAttribute("aria-selected");
-			
-			Myassert.assertEquals(ActualResult , "false");
-		}
-	
+
+	@Test(priority = 5)
+
+	public void CheckTheHotelTapIsNotSelected() {
+
+		WebElement HotelTap = driver.findElement(By.id("uncontrolled-tab-example-tab-hotels"));
+
+		String ActualResult = HotelTap.getAttribute("aria-selected");
+
+		Myassert.assertEquals(ActualResult, "false");
+	}
+
 	@Test(priority = 6)
 	public void CheckFlightDepartureDate() {
-		
-		String ActualDepartureDate = driver.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-kqlzXE blwiEW'] span[class='sc-cPuPxo LiroG']")).getText();
-				int ActualDepartureDateAsNumber = Integer.parseInt(ActualDepartureDate);
-			
-				Myassert.assertEquals(ActualDepartureDateAsNumber, Tomorrow);
-		
-		
+
+		String ActualDepartureDate = driver
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-kqlzXE blwiEW'] span[class='sc-cPuPxo LiroG']"))
+				.getText();
+		int ActualDepartureDateAsNumber = Integer.parseInt(ActualDepartureDate);
+
+		Myassert.assertEquals(ActualDepartureDateAsNumber, Tomorrow);
+
 	}
-			@Test(priority = 7)
-			public void CheckFlightReturnDate() {
+
+	@Test(priority = 7 )
+	public void CheckFlightReturnDate() {
+
+		String ActualReturnDate = driver
+				.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-OxbzP edzUwL'] span[class='sc-cPuPxo LiroG']"))
+				.getText();
+		int ActualReturnDateAsNumber = Integer.parseInt(ActualReturnDate);
+
+		Myassert.assertEquals(ActualReturnDateAsNumber, TheDayAfterTomorrow);
+
+	}
+			@Test(priority = 8 )
+			public void UseRandomMethodToChangeLanguag() {
 				
-				String ActualReturnDate = driver.findElement(By.cssSelector("div[class='sc-iHhHRJ sc-OxbzP edzUwL'] span[class='sc-cPuPxo LiroG']")).getText();
-				int ActualReturnDateAsNumber = Integer.parseInt(ActualReturnDate);
-				
-				Myassert.assertEquals(ActualReturnDateAsNumber, TheDayAfterTomorrow);
+			driver.get(Websites[randomWebsites]);
+				if(driver.getCurrentUrl().contains("en")) {
+					
+					String ActualLanguage = driver.findElement(By.tagName("html")).getAttribute("lang");
+					Myassert.assertEquals(ActualLanguage, ExpectedEnglishLanguage);
+					
+				}
+				else {
+					
+					String ActualLanguage = driver.findElement(By.tagName("html")).getAttribute("lang");
+					Myassert.assertEquals(ActualLanguage, ExpectedArabicLanguage);
+					
+				}
 				
 			}
-	}
-
-
-
-
+}
