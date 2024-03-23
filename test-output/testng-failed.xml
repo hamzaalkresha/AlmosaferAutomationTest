@@ -5,7 +5,10 @@
     <classes>
       <class name="HotelSearchTest.BookingHotelTestCases">
         <methods>
-          <include name="Mytest"/>
+          <include name="PageFullyCompleted"/>
+          <include name="SortPricesFromLowToHigh"/>
+          <include name="RandomlySelectNumberOfVisitor"/>
+          <include name="RandomlySelectCitys"/>
           <include name="Mysetup"/>
         </methods>
       </class> <!-- HotelSearchTest.BookingHotelTestCases -->
